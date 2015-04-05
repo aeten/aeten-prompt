@@ -208,7 +208,7 @@ if [ -n "${BASH_VERSION}" ]; then
 		echo -e "${prompt}"
 	}
 
-	PS2="${yellow}→${reset} "
+	PS2="\[\e[1m\e[38;5;240m\]\[\e[0m\] "
 
 	function bash_prompt() {
 		PS1="$(build_prompt)"
