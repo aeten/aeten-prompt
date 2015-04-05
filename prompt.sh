@@ -1,7 +1,7 @@
 PSORG=$PS1;
 
-: ${THEME=green}
-: ${THEME_VARIANT=} #dark
+: ${omg_theme=green}
+: ${omg_theme_variant=} #dark
 
 
 if [ -n "${BASH_VERSION}" ]; then
@@ -77,9 +77,6 @@ if [ -n "${BASH_VERSION}" ]; then
 		local bold='\e[1m'
 		local normal='\e[0m'
 
-		THEME=green
-		THEME_VARIANT= #dark
-
 		local blue='31'
 		local dark_blue='24'
 		local green='29'
@@ -109,8 +106,8 @@ if [ -n "${BASH_VERSION}" ]; then
 		local bg_darkgray="\e[48;5;${dark_gray}m"
 		local bg_white="\e[48;5;${white}m"
 
-		local fg_theme=fg_${THEME_VARIANT}${THEME}
-		local bg_theme=bg_${THEME_VARIANT}${THEME}
+		local fg_theme=fg_${omg_theme_variant}${omg_theme}
+		local bg_theme=bg_${omg_theme_variant}${omg_theme}
 
 		local reset='\[\e[0m\]'     # Text Reset]'
 
