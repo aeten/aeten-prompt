@@ -173,7 +173,9 @@ if [ -n "${BASH_VERSION}" ]; then
 						fi
 						
 					fi
-					prompt+=$(enrich_append true "(${current_branch} ${type_of_upstream} ${upstream//\/$current_branch/})" "${vcs_color}")
+					local upstream_str=${upstream/\/$current_branch/}
+					upstream_str=${upstream_str/$current_branch/[…]}
+					prompt+=$(enrich_append true "(${current_branch} ${type_of_upstream} ${upstream_str})" "${vcs_color}")
 				fi
 			fi
 			prompt+=$(enrich_append ${is_on_a_tag} "${omg_is_on_a_tag_symbol}${tag_at_current_commit}" "${vcs_color}")

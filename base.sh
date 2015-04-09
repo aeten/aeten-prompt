@@ -1,15 +1,3 @@
-#function enrich {
-#    local flag=$1
-#    local symbol=$2
-#
-#    local color_on=${3:-$omg_default_color_on}
-#
-#    if [[ $flag != true && $omg_use_color_off == false ]]; then symbol=' '; fi
-#    if [[ $flag == true ]]; then local color=$color_on; else local color=$omg_default_color_off; fi    
-#
-#    echo -n "${prompt}${color}${symbol}${reset} "
-#}
-
 function get_current_action () {
     local info="$(git rev-parse --git-dir 2>/dev/null)"
     if [ -n "$info" ]; then
