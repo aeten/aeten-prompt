@@ -4,10 +4,12 @@ if [ -n "${BASH_VERSION}" ]; then
 
 	source "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/base.sh"
 
-	: ${aeten_prompt_config_file=$(for prefix in /etc/ ~/. ~/.config/ ~/.etc/ ~/.dotfiles/; do echo ${prefix}aeten-prompt; done)}
-	for omg_config_file in ${aeten_prompt_config_file}; do
-		[ -f ${omg_config_file} ] && . ${omg_config_file}
-	done
+	if [ -z "$SSH_CLIENT" ]; then
+		: ${aeten_prompt_config_file=$(for prefix in /etc/ ~/. ~/.config/ ~/.etc/ ~/.dotfiles/; do echo ${prefix}aeten-prompt; done)}
+		for omg_config_file in ${aeten_prompt_config_file}; do
+			[ -f ${omg_config_file} ] && . ${omg_config_file}
+		done
+	fi
 
 	# Fallback US-ASCII symbols
 	: ${omg_is_a_git_repo_symbol:=git}            #    
@@ -201,7 +203,7 @@ if [ -n "${BASH_VERSION}" ]; then
 		echo -e "${prompt}"
 	}
 
-	PS2="\[${omg_fg_darkgray}\]${omg_arrow}\[${omg_reset}\] "
+	PS2="\[${omg_fg_darkgray}\]${omg_arrow}${omg_reset} "
 
 	function bash_prompt() {
 		PS1="$(build_prompt)"
