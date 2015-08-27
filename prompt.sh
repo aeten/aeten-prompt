@@ -200,7 +200,7 @@ if [ -n "${BASH_VERSION}" ]; then
 		prompt+=" ${omg_reset}${path_end_color}${omg_arrow} ${omg_reset}"
 		prompt+="$(eval_prompt_callback_if_present)"
 
-		echo -e "${prompt}"
+		echo -e "${prompt}\e[K"
 	}
 
 	PS2="\[${omg_fg_darkgray}\]${omg_arrow}${omg_reset} "
