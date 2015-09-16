@@ -129,7 +129,8 @@ if [ -n "${BASH_VERSION}" ]; then
 		local color
 		local arrow
 		local path=$(pwd)
-		local last_rep=$(basename ${path})
+		local last_rep=$(basename "${path}")
+		local ifs_backup
 
 		if [ "$is_a_git_repo" = true ]; then
 			# on filesystem
@@ -185,18 +186,21 @@ if [ -n "${BASH_VERSION}" ]; then
 			top_level=$(git rev-parse --show-toplevel)
 			color=${path_color}
 			arrow="${vcs_to_path_color}${omg_arrow}"
-			prompt+="${vcs_to_path_color}${omg_arrow} ${path_color_highlight}$(basename ${top_level})"
+			prompt+="${vcs_to_path_color}${omg_arrow} ${path_color_highlight}$(basename "${top_level}")"
 			path=$(pwd|sed s,${top_level},,)
 			arrow="${path_separator_color} ${omg_separator}";
 		else
 			prompt+="${user_color} \u "
 			arrow="${user_to_path_color}${omg_arrow}";
 		fi
-		for rep in $(echo ${path}|sed "s,${HOME},~,"|tr / ' '); do
-			[ $rep = ${last_rep} ] && color="${path_color_last}" || color=${path_color}
+		ifs_backup=${IFS}
+		IFS=$'\n'
+		for rep in $(echo ${path}|sed "s,${HOME},~,"|tr / $'\n'); do
+			[ $rep = "${last_rep}" ] && color="${path_color_last}" || color=${path_color}
 			prompt+="${arrow}${color} ${rep}"
 			arrow="${path_separator_color} ${omg_separator}";
 		done
+		IFS=${ifs_backup}
 		prompt+=" ${omg_reset}${path_end_color}${omg_arrow} ${omg_reset}"
 		prompt+="$(eval_prompt_callback_if_present)"
 
